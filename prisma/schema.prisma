@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgres"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model users {
+  username           String   @unique
+  email              String   @unique
+  auth_id            String
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
+  profile_picture    String?
+  name               String?
+  id                 Int      @id @unique(map: "users_new_id_key") @default(autoincrement())
+  about              String?
+  social_links       Json?
+  location           String?
+  interests          String?
+  cover_picture      String?
+  username_history   Json?
+  special_title      Json?
+  chatting_with      Json?    @default(dbgenerated("jsonb_build_array()"))
+  profile_visibility String   @default("default")
+}
+
+model blog_likes {
+  id         Int       @id @default(autoincrement())
+  blog_id    Int
+  user_id    Int
+  date_liked DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model blogs {
+  id               Int       @id @default(autoincrement())
+  title            String
+  content          String
+  is_public        Boolean
+  date_posted      DateTime  @default(now()) @db.Timestamptz(6)
+  tags             Json
+  username         String
+  likes            Int       @default(0)
+  shares           Int       @default(0)
+  liked_users      Json?     @default(dbgenerated("jsonb_build_array()"))
+  updated_at       DateTime? @default(now()) @db.Timestamptz(6)
+  comments_allowed Boolean   @default(true)
+  is_deleted       Boolean   @default(false)
+}
+
+model comment_likes {
+  id         BigInt   @id @default(autoincrement())
+  comment_id BigInt
+  user_id    Int
+  date_liked DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model comments {
+  id         BigInt    @id @default(autoincrement())
+  content    String
+  posted_on  DateTime  @default(now()) @db.Timestamptz(6)
+  likes      Int       @default(0)
+  blog_id    Int
+  parent_id  BigInt?
+  username   String?
+  is_public  Boolean?  @default(true)
+  is_edited  Boolean?  @default(false)
+  updated_at DateTime? @default(now()) @db.Timestamptz(6)
+  is_deleted Boolean   @default(false)
+  root_id    BigInt?
+}
+
+model follow_system {
+  id         BigInt   @id @default(autoincrement())
+  follows    String
+  user       String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model user_chats {
+  id         BigInt   @id @default(autoincrement())
+  sender     String
+  receiver   String
+  content    String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  is_deleted Boolean  @default(false)
+}
+
+model user_notifications {
+  id               BigInt   @id @default(autoincrement())
+  notification_for String
+  notification_by  String
+  has_read         Boolean  @default(false)
+  type             String
+  blog_id          Int?
+  comment_id       BigInt?
+  created_at       DateTime @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime @default(now()) @db.Timestamptz(6)
+}
