@@ -1,4 +1,4 @@
-interface ParserOptions {
+export interface ParserOptions {
   /**
    * Class For Heading Tags
    * @default "parser-header"
@@ -35,7 +35,7 @@ interface ParserOptions {
    */
   imgClass?: string;
 };
-class Parser {
+export class Parser {
 
   private rules: (string | RegExp)[][];
 

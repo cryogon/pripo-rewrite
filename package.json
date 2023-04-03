@@ -1,4 +1,7 @@
 {
+  "name": "pripo",
+  "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "build": "nuxt build",
@@ -18,7 +21,6 @@
   },
   "dependencies": {
     "@prisma/client": "^4.12.0",
-    "dompurify": "^3.0.1",
-    "markdown-it": "^13.0.1"
+    "dompurify": "^3.0.1"
   }
 }

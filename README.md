@@ -1,6 +1,7 @@
-# Nuxt 3 Minimal Starter
+# Pripo-Rewrite
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Currently Active Version
+[Pripo](https://pripo.netlify.app)
 
 ## Setup
 
@@ -39,4 +40,3 @@ Locally preview production build:
 npm run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

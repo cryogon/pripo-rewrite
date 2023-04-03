@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import MarkDownIt from "markdown-it";
+import {Parser} from "@/utils/mdparser";
 import DOMPurify from "dompurify";
 const postTitle = ref("");
 const postContent = ref("");
-const md = MarkDownIt({
-    linkify:true,
-    html:true,  
-    typographer:true
-})
+const md = new Parser();
 function sanitizedHTML(html:string){
     return DOMPurify.sanitize(md.render(html));
 }
@@ -39,10 +35,21 @@ function sanitizedHTML(html:string){
     </div>
   </main>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
+  .preview{
+    .parser-headers{
+      color:red;
+    }
+    .parser-links{
+      background-color: lightcoral;
+      text-decoration: none;
+    }
+    
+  }
 main.container {
   display: flex;
   gap: 10px;
+
   .publisher {
     width: 50%;
     display: flex;
