@@ -5,7 +5,9 @@
   --background-secondary: #303030;
   --link-color: #1da5a5;
   --text-color: #f5deb3;
-  --tag-color: #e9dc6a #f4a261 #e76f51;
+  --tag-background: #e9dc6a, #f4a261, #e76f51;
+  --tag-color:#041d04;
+  --button-background:coral;
 }
 * {
   margin: 0;
@@ -27,7 +29,13 @@ textarea {
   all: unset;
   background-color: var(--background-secondary);
 }
-input[type="text"]:focus,textarea:focus{
+button{
+  all:unset;
+  color:var(--tag-color);
+  padding:0.3rem;
+  background-color: var(--button-background);
+}
+input[type="text"]:focus,textarea:focus,button:focus{
     outline: 1px solid whitesmoke;
 }
 
