@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 
 export default defineEventHandler(async (e) => {
-    const user = await prisma.users.findMany();
+    const user = await prisma.users.findFirst();
     return user;
 
 })

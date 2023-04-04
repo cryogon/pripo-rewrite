@@ -1,3 +1,5 @@
+//In Future Maybe I will use this since I can customise it anyway I like
+//But Not using now
 export interface ParserOptions {
   /**
    * Class For Heading Tags
@@ -51,12 +53,12 @@ export class Parser {
       } = options || {};
       this.rules = [
           //header rules
-          [/#{6}\s?([^\n]+)/g, `<h6 class="${headerClass}">$1</h6>`],
-          [/#{5}\s?([^\n]+)/g, `<h5 class="${headerClass}">$1</h5>`],
-          [/#{4}\s?([^\n]+)/g, `<h4 class="${headerClass}">$1</h4>`],
-          [/#{3}\s?([^\n]+)/g, `<h3 class="${headerClass}">$1</h3>`],
-          [/#{2}\s?([^\n]+)/g, `<h2 class="${headerClass}">$1</h2>`],
-          [/#{1}\s?([^\n]+)/g, `<h1 class="${headerClass}">$1</h1>`],
+          [/#{6}\s\s?([^\n]+)/g, `<h6 class="${headerClass}">$1</h6>`],
+          [/#{5}\s\s?([^\n]+)/g, `<h5 class="${headerClass}">$1</h5>`],
+          [/#{4}\s\s?([^\n]+)/g, `<h4 class="${headerClass}">$1</h4>`],
+          [/#{3}\s\s?([^\n]+)/g, `<h3 class="${headerClass}">$1</h3>`],
+          [/#{2}\s\s?([^\n]+)/g, `<h2 class="${headerClass}">$1</h2>`],
+          [/#{1}\s\s?([^\n]+)/g, `<h1 class="${headerClass}">$1</h1>`],
 
           //bold, italics and paragragh rules
           [/\*\*\s?([^\n]+)\*\*/g, `<b class="${boldClass}">$1</b>`],
