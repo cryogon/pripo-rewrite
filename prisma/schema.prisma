@@ -3,35 +3,33 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgres"
+  provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model users {
-  username           String   @unique
-  email              String   @unique
-  auth_id            String
-  created_at         DateTime @default(now()) @db.Timestamptz(6)
-  profile_picture    String?
-  name               String?
-  id                 Int      @id @unique(map: "users_new_id_key") @default(autoincrement())
-  about              String?
+  id                 Int   @id @default(autoincrement())
+  username           String   @unique(map: "username") @db.VarChar(255)
+  email              String   @unique(map: "email") @db.VarChar(255)
+  name               String   @db.VarChar(255)
+  is_supporter       Boolean  @default(false)
+  location           String?  @db.VarChar(255)
+  profile_picture    String   @db.Text
+  created_at         DateTime @default(now()) @db.Timestamp(0)
+  cover_picture      String?  @db.Text
+  interests          String?  @db.VarChar(255)
   social_links       Json?
-  location           String?
-  interests          String?
-  cover_picture      String?
-  username_history   Json?
   special_title      Json?
-  chatting_with      Json?    @default(dbgenerated("jsonb_build_array()"))
-  profile_visibility String   @default("default")
+  profile_visibility String   @default("visible") @db.VarChar(20)
+  about              String?  @db.Text
 }
 
 model blog_likes {
   id         Int       @id @default(autoincrement())
   blog_id    Int
   user_id    Int
-  date_liked DateTime? @default(now()) @db.Timestamptz(6)
+  date_liked DateTime? @default(now()) @db.Timestamp(0)
 }
 
 model blogs {
@@ -39,13 +37,13 @@ model blogs {
   title            String
   content          String
   is_public        Boolean
-  date_posted      DateTime  @default(now()) @db.Timestamptz(6)
+  date_posted      DateTime  @default(now()) @db.Timestamp(0)
   tags             Json
   username         String
   likes            Int       @default(0)
   shares           Int       @default(0)
   liked_users      Json?     @default(dbgenerated("jsonb_build_array()"))
-  updated_at       DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime? @default(now()) @db.Timestamp(0)
   comments_allowed Boolean   @default(true)
   is_deleted       Boolean   @default(false)
 }
@@ -54,20 +52,20 @@ model comment_likes {
   id         BigInt   @id @default(autoincrement())
   comment_id BigInt
   user_id    Int
-  date_liked DateTime @default(now()) @db.Timestamptz(6)
+  date_liked DateTime @default(now()) @db.Timestamp(0)
 }
 
 model comments {
   id         BigInt    @id @default(autoincrement())
   content    String
-  posted_on  DateTime  @default(now()) @db.Timestamptz(6)
+  posted_on  DateTime  @default(now()) @db.Timestamp(0)
   likes      Int       @default(0)
   blog_id    Int
   parent_id  BigInt?
   username   String?
   is_public  Boolean?  @default(true)
   is_edited  Boolean?  @default(false)
-  updated_at DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
   is_deleted Boolean   @default(false)
   root_id    BigInt?
 }
@@ -76,7 +74,7 @@ model follow_system {
   id         BigInt   @id @default(autoincrement())
   follows    String
   user       String
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamp(0)
 }
 
 model user_chats {
@@ -84,8 +82,8 @@ model user_chats {
   sender     String
   receiver   String
   content    String
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
   is_deleted Boolean  @default(false)
 }
 
@@ -97,6 +95,6 @@ model user_notifications {
   type             String
   blog_id          Int?
   comment_id       BigInt?
-  created_at       DateTime @default(now()) @db.Timestamptz(6)
-  updated_at       DateTime @default(now()) @db.Timestamptz(6)
+  created_at       DateTime @default(now()) @db.Timestamp(0)
+  updated_at       DateTime @default(now()) @db.Timestamp(0)
 }
