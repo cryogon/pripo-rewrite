@@ -104,7 +104,7 @@ main.container {
     .publish-options {
       border-radius: 1rem;
       padding: 0.5rem 1rem;
-      background-color: var(--background-secondary);
+      background-color: var(--input-background);
       .publish-option {
         display: flex;
         gap: 5px;

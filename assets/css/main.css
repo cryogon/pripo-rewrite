@@ -2,7 +2,8 @@
 
 :root {
   --background-primary: #161616;
-  --background-secondary: #303030;
+  --background-secondary: #202020;
+  --input-background:#303030;
   --link-color: #1da5a5;
   --text-color: #f5deb3;
   --tag-background: #e9dc6a, #f4a261, #e76f51;
