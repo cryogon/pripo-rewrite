@@ -28,7 +28,9 @@
     </article>
     <section class="post-card__options padding">
       <Icon name="mdi:cards-heart-outline" size="30" />
-      <Icon name="mdi:comment" size="30" />
+      <span class="post-like-count">0</span>
+      <Icon name="mdi:comment-outline" size="30" />
+      <span class="post-comment-count">0</span>
       <Icon name="ph:share-network-light" size="30" />
     </section>
   </section>
@@ -62,7 +64,11 @@ section.post-card {
 
   .post-card__options {
     display: flex;
+    align-items: center;
     gap: calc($gap + 10px);
+    &>span{
+      margin-inline-start: -0.5rem;
+    }
   }
 }
 </style>
