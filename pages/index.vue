@@ -13,7 +13,7 @@
   .container{
     background-color: var(--background-secondary);
     min-width: 70%;
-    min-height: 40rem;
+    min-height: 100%;
     padding-inline:4rem;
   }
 }

@@ -1,7 +1,11 @@
+<script setup lang="ts">
+const isPostPublic = ref(true);
+</script>
 <template>
   <section class="post-card">
     <div class="post-card__header">
-      <div class="user-avatar anonymous"></div>
+      <img src="https://res.cloudinary.com/dmerejjkt/image/upload/v1679115150/ge5ud2yrj3xmbxfrmxjw.jpg" alt="user" class="user-avatar" v-if="isPostPublic">
+      <div class="user-avatar anonymous" v-else></div>
       <div class="post-card__header-user-info">
         <span class="post-card__user-name">cryogon</span>
         <span class="post-card__date">posted today</span>
@@ -65,6 +69,7 @@ section.post-card {
   .post-card__options {
     display: flex;
     align-items: center;
+    margin-block-start: 0.75rem;
     gap: calc($gap + 10px);
     &>span{
       margin-inline-start: -0.5rem;
