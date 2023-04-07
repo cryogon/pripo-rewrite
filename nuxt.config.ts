@@ -4,8 +4,5 @@ export default defineNuxtConfig({
         '@nuxt/devtools',
         'nuxt-icon',
     ],
-    app: {
-        rootTag: "main"
-    },
     css: ['@/assets/css/main.css',],
 })
