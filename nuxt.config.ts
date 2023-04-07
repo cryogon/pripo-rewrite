@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     modules:[
         '@nuxt/devtools',
-        'nuxt-icon'
+        'nuxt-icon',
     ],
     app: {
         rootTag: "main"

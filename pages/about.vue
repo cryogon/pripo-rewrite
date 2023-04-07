@@ -10,4 +10,4 @@ function refetch(){
         <button @click="refetch">{{count.data.value?.count}}</button>
         {{ count.data.value && JSON.parse(count.data.value?.file).info }}
     </div>
-</template>`
+</template>

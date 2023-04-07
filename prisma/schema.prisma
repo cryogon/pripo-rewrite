@@ -8,76 +8,82 @@ datasource db {
   relationMode = "prisma"
 }
 
-model users {
-  id                 Int   @id @default(autoincrement())
-  username           String   @unique(map: "username") @db.VarChar(255)
-  email              String   @unique(map: "email") @db.VarChar(255)
-  name               String   @db.VarChar(255)
-  is_supporter       Boolean  @default(false)
-  location           String?  @db.VarChar(255)
-  profile_picture    String   @db.Text
-  created_at         DateTime @default(now()) @db.Timestamp(0)
-  cover_picture      String?  @db.Text
-  interests          String?  @db.VarChar(255)
+model User {
+  id                 Int        @id @default(autoincrement())
+  username           String     @unique(map: "username") @db.VarChar(255)
+  email              String     @unique(map: "email") @db.VarChar(255)
+  name               String     @db.VarChar(255)
+  is_supporter       Boolean    @default(false)
+  location           String?    @db.VarChar(255)
+  profile_picture    String     @db.Text
+  created_at         DateTime   @default(now()) @db.Timestamp(0)
+  cover_picture      String?    @db.Text
+  interests          String?    @db.VarChar(255)
   social_links       Json?
   special_title      Json?
-  profile_visibility String   @default("visible") @db.VarChar(20)
-  about              String?  @db.Text
+  profile_visibility Visibility @default(hidden)
+  about              String?    @db.Text
 }
 
-model blog_likes {
+enum Visibility {
+  hidden
+  partial
+  visible
+}
+
+model Post_Likes {
   id         Int       @id @default(autoincrement())
   blog_id    Int
   user_id    Int
   date_liked DateTime? @default(now()) @db.Timestamp(0)
 }
 
-model blogs {
+model Post {
   id               Int       @id @default(autoincrement())
   title            String
   content          String
   is_public        Boolean
   date_posted      DateTime  @default(now()) @db.Timestamp(0)
   tags             Json
-  username         String
   likes            Int       @default(0)
   shares           Int       @default(0)
   liked_users      Json?     @default(dbgenerated("jsonb_build_array()"))
   updated_at       DateTime? @default(now()) @db.Timestamp(0)
   comments_allowed Boolean   @default(true)
   is_deleted       Boolean   @default(false)
+  userId           Int
 }
 
-model comment_likes {
+model CommentLike {
   id         BigInt   @id @default(autoincrement())
   comment_id BigInt
   user_id    Int
   date_liked DateTime @default(now()) @db.Timestamp(0)
 }
 
-model comments {
+model Comment {
   id         BigInt    @id @default(autoincrement())
   content    String
   posted_on  DateTime  @default(now()) @db.Timestamp(0)
   likes      Int       @default(0)
   blog_id    Int
   parent_id  BigInt?
-  username   String?
   is_public  Boolean?  @default(true)
   is_edited  Boolean?  @default(false)
   updated_at DateTime? @default(now()) @db.Timestamp(0)
   is_deleted Boolean   @default(false)
   root_id    BigInt?
+  userId     Int
 }
 
-model follow_system {
+model FollowSystem {
   id         BigInt   @id @default(autoincrement())
   follows    String
   user       String
   created_at DateTime @default(now()) @db.Timestamp(0)
 }
 
-model user_chats {
+model UserChat {
   id         BigInt   @id @default(autoincrement())
   sender     String
   receiver   String
@@ -87,7 +93,7 @@ model user_chats {
   is_deleted Boolean  @default(false)
 }
 
-model user_notifications {
+model UserNotification {
   id               BigInt   @id @default(autoincrement())
   notification_for String
   notification_by  String
